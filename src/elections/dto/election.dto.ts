@@ -10,7 +10,7 @@ export class ElectionDto{
   @IsString({ each: true })
   documentNames: string[];
 
-  @Transform(({ value }) => JSON.parse(value))
+
   @IsNumber({}, { each: true })
   addIndexs: number[];
 

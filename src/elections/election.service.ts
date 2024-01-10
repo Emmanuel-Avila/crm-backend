@@ -21,15 +21,16 @@ export class ElectionService{
       if(files.length !== 0){
 
         for(let i=0; i<election.addIndexs.length; i++){
+
           if(election.addIndexs[i]+1 > electionB.documents.length){
-            
-            const document = this.uploadFile(files[i],election.documentNames[election.addIndexs[i]],"transparencia");
+
+            const document = this.uploadFile(files[i],election.documentNames[election.addIndexs[i]],"elecciones");
 
             electionB.documents.push(document);
             electionB.markModified('documents');
           }else{
 
-            electionB.documents[election.addIndexs[i]] = this.uploadFile(files[i],election.documentNames[election.addIndexs[i]],"transparencia");
+            electionB.documents[election.addIndexs[i]] = this.uploadFile(files[i],election.documentNames[election.addIndexs[i]],"elecciones");
           }
         }
 
@@ -84,6 +85,7 @@ export class ElectionService{
   }
 
   uploadFile(file, name, carpetName): Document{
+    console.log(name)
     const newFileName = `upload_${Date.now()}${path.extname(file.originalname)}`;
     const publicUploadsPath = path.join(__dirname, '..', '..', 'public', 'uploads', carpetName);
     const newPath = path.join(publicUploadsPath,newFileName);

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, UseGuards, Post, UploadedFiles, UseInterceptors, UsePipes  } from "@nestjs/common";
+import { Body, Controller, Get, HttpStatus, Param, UseGuards, Post, UploadedFiles, UseInterceptors, UsePipes, BadRequestException  } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { AuthGuard } from '../users/auth.guard';
 import { ElectionDto } from "./dto/election.dto";
@@ -11,13 +11,15 @@ export class ElectionController{
 
   @UseGuards(AuthGuard)
   @Post()
-  // @UsePipes(TransformDocumentNamesPipe)
+  @UsePipes(new TransformDocumentNamesPipe())
   @UseInterceptors(FilesInterceptor('files', 10 ,{
     dest: 'uploads/'
   }))
   updateTransparency(@Body() body, @UploadedFiles( ) files: Array<Express.Multer.File>){
-    console.log(body, files)
-    // return this.electionService.updateElection(body, files);
+    if(body.error){
+      throw new BadRequestException(body);
+    }
+    return this.electionService.updateElection(body, files);
   }
 
   @UseGuards(AuthGuard)
