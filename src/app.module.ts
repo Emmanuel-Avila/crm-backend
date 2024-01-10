@@ -40,6 +40,8 @@ import { TransparencyModule } from './transparency/transparency.module';
 import { TransparencyController } from './transparency/transparency.controller';
 import { ElectionModule } from './elections/election.module';
 import { ElectionController } from './elections/election.controller';
+import { OfficeModule } from './offices/office.module';
+import { OfficeController } from './offices/office.controller';
 
 @Module({
   imports: 
@@ -63,6 +65,7 @@ import { ElectionController } from './elections/election.controller';
     FairModule,
     TransparencyModule,
     ElectionModule,
+    OfficeModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
@@ -86,7 +89,8 @@ import { ElectionController } from './elections/election.controller';
     CovenantController,
     FairController,
     TransparencyController,
-    ElectionController
+    ElectionController,
+    OfficeController,
   ],
   providers: [AppService,
     {
