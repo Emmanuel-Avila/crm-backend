@@ -1,0 +1,88 @@
+Carousel de servicios editable,
+Convenios descuento por planilla
+
+Cuentas de recaudo: 
+  Todo se guardaria en base de datos
+ Texto de los tabs se guardaria en base de datos tambien
+ Texto de cada una de las secciones seria texto enriquecido y titulos
+texto normal.
+ -Pago en linea: texto enriquecido
+ -Pago de asociativos y depositos: Titulo solo depositos
+Bancos se pueden editar manteniendo la estructura, textos y eliminacion de banco
+
+Contacto:
+Editar y agregar sedes, en ves del icono de headset un telefono en blanco
+En ves de ID tipo de DOI
+
+Comite Electoral:
+Editar los PDF que se pueden ver
+
+Preguntes Frecuentes:
+-Se queda sin documentos y eso pasa a transparencia.
+
+Transparencia:
+Botones cuadrados tipo cards, para los documentos excepto tarifario de productos y
+tramites varios
+
+Nosotros:
+
+-Mision y vision: texto se va a poder cambiar
+-Comite de Educacion: Miembros editables
+-Comité Electoral: Miembros editables
+-Consejos: Miembros editables
+-Todas las imagenes se remueven 
+- directivos entraria en una sola columna
+
+Servicios Digitales:
+
+-Agregar un boton mas con texto: "descarga"
+-Columna izquierda: texto enriquecido
+-Columna derecha: una sola imagen
+-Columna derecha
+
+Modal
+Boton de buscar
+Botones de Compartir
+Calendarios y horas
+Footer: color de cuadro, novedades
+Boton Whatsapp
+turismo,salud, educacion, belleza, transporte
+
+Transparecia: 
+Inicio -> Cambiaria Titulo:
+-Documentos pdf de transparencia
+
+Inicio: Documentos
+Historial de Productos -> Tratamiento de datos Personales: 
+-Politica de proteccion de Datos
+-Politica de privacidad
+-Politica de uso contenido
+
+Nuevo Tab: Institucional
+
+Documento pdf: Sirvase a ejecutar a documentos pasivos
+
+A tomar en cuenta:
+-------Servicios Digitales: Imagen: 372*436
+
+
+
+Me falta:
+
+------------------Campañas de salud-----
+Imagen:
+link:
+Text:
+------------------Progrmas de prevision social-----
+Imagen:
+link:
+Text:
+------------------Capacitaciones-----
+Imagen:
+link:
+Text:
+------------------Eventos-----
+Imagen:
+link:
+Text:
+--------------Benficios y Convenios Comerciales y poner documentos donde sea necesario

@@ -1,0 +1,379 @@
+<script setup>
+import OffCanvas from '../components/OffCanvas.vue';
+import { getUserData } from '../helper/auth';
+import { ref } from 'vue';
+import { Form, Field, ErrorMessage, FieldArray } from 'vee-validate'
+import * as yup from 'yup'; // Importa yup
+
+const userData = getUserData();
+
+const initialSection = { inputValue: '', fileValue: null };
+const sections = ref([{ inputValue: '', fileValue: null }]);
+
+
+
+const addSection = () => {
+  console.log(initialSection);
+  sections.value.push({ ...initialSection });
+  console.log(sections.value);
+};
+
+const removeSection = (index) => {
+  sections.value.splice(index, 1);
+};
+
+const handleChange = () => {
+  console.log(sections.value)
+}
+
+// Define las reglas de validación con yup
+const validationSchema = yup.object().shape({
+  inputValue: yup.string().required('Campo de entrada es requerido'),
+  fileValue: yup.mixed().required('Campo de archivo es requerido'),
+});
+
+function onSubmit(values, { resetForm }) {
+  console.log("first")
+  console.log(values);
+
+}
+</script>
+
+<template>
+  <!--start header-->
+  <header class="top-header">
+    <nav class="navbar navbar-expand align-items-center justify-content-between gap-3">
+      <div class="btn-toggle">
+        <a href="#offcanvasPrimaryMenu" data-bs-toggle="offcanvas"><i class="material-icons-outlined">menu</i></a>
+      </div>
+    </nav>
+  </header>
+  <!--end top header-->
+
+  <!--start mini sidebar-->
+  <aside class="mini-sidebar d-flex align-items-center flex-column justify-content-between">
+    <div class="user">
+      <a href="#offcanvasUserDetails" data-bs-toggle="offcanvas" class="user-icon">
+        <i class="material-icons-outlined">account_circle</i>
+      </a>
+    </div>
+  </aside>
+  <!--end mini sidebar-->
+
+
+  <!--start main wrapper-->
+  <main class="main-wrapper">
+    <div class="main-content">
+      <!--breadcrumb-->
+      <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Dashboard</div>
+        <div class="ps-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+              <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Crear Blog</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="ms-auto">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary">Settings</button>
+            <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
+              data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
+                href="javascript:;">Action</a>
+              <a class="dropdown-item" href="javascript:;">Another action</a>
+              <a class="dropdown-item" href="javascript:;">Something else here</a>
+              <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end breadcrumb-->
+      <div class="row">
+        <div class="col-xl-12 mx-auto">
+          <Form @submit='onSubmit' v-slot="{ values }">
+            <h6 class="mb-0 text-uppercase">File input</h6>
+            <hr>
+            <div class="card">
+              <!-- <FieldArray name="sections"> -->
+
+              <div class="card-body" v-for="(section, index) in sections" :key="index">
+                <div class="mb-3">
+                  {{ section }}
+                  <label for="formFile" class="form-label">Archivo</label>
+                  <Field name="files" v-slot="{ handleChange, handleBlur }" v-model="section.fileValue">
+                    <input class="form-control" type="file" @change="handleChange" @blur="handleBlur"
+                      :id="'files_' + index" />
+                  </Field>
+                  <!-- <input class="form-control" type="file" @change="handleChange" @blur="handleBlur"
+                      :id="'files_' + index" /> -->
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Nombre visible del archivo</label>
+                  <Field class="form-control" :name="`documentNames${index}`" placeholder='Nombre aquí' type="text"
+                    :id="'names_' + index" v-model="section.inputValue"></Field>
+                  <!-- <input type="text" v-model="section.inputValue" class="form-control" name="documentNames"
+                      placeholder="Nombre aquí"> -->
+                </div>
+                <div class="row">
+                  <label class="col-md-3 col-form-label"></label>
+                  <div class="col-md-9">
+                    <div class="d-md-flex d-grid align-items-center gap-3">
+                      <button type="button" class="btn btn-primary px-4" @click.prevent="addSection">Añadir</button>
+                      <button type="button" class="btn btn-light px-4" @click="removeSection(index)">Quitar
+                        elemento</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- </FieldArray> -->
+            </div>
+            <button type="submit">Hola</button>
+          </Form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-12">
+          <div class="card">
+            <div class="card-body p-4">
+              <h5 class="mb-4">Horizontal Form</h5>
+              <div class="row mb-3">
+                <label for="input35" class="col-sm-3 col-form-label">Enter Your Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input35" placeholder="Enter Your Name">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="input36" class="col-sm-3 col-form-label">Phone No</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="input36" placeholder="Phone No">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="input37" class="col-sm-3 col-form-label">Email Address</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="input37" placeholder="Email Address">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="input38" class="col-sm-3 col-form-label">Choose Password</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="input38" placeholder="Choose Password">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="input39" class="col-sm-3 col-form-label">Select Country</label>
+                <div class="col-sm-9">
+                  <select class="form-select" id="input39">
+                    <option selected="">Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="input40" class="col-sm-3 col-form-label">Address</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" id="input40" rows="3" placeholder="Address"></textarea>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="input41">
+                    <label class="form-check-label" for="input41">Check me out</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9">
+                  <div class="d-md-flex d-grid align-items-center gap-3">
+                    <button type="button" class="btn btn-primary px-4">Submit</button>
+                    <button type="button" class="btn btn-light px-4">Reset</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div><!--end row-->
+
+    </div>
+  </main>
+  <!--end main wrapper-->
+
+
+  <!--start cart-->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
+    <div class="offcanvas-header border-bottom h-70">
+      <h5 class="mb-0" id="offcanvasRightLabel">8 New Orders</h5>
+      <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
+        <i class="material-icons-outlined">close</i>
+      </a>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="order-list">
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">White Men Shoes</h5>
+            <p class="mb-0 order-price">$289</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">Red Airpods</h5>
+            <p class="mb-0 order-price">$149</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">Men Polo Tshirt</h5>
+            <p class="mb-0 order-price">$139</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">Blue Jeans Casual</h5>
+            <p class="mb-0 order-price">$485</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">Fancy Shirts</h5>
+            <p class="mb-0 order-price">$758</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">Home Sofa Set </h5>
+            <p class="mb-0 order-price">$546</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">Black iPhone</h5>
+            <p class="mb-0 order-price">$1049</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+
+        <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+          <div class="order-img">
+            <img src="https://placehold.co/75x50" class="img-fluid rounded-3" width="75" alt="">
+          </div>
+          <div class="order-info flex-grow-1">
+            <h5 class="mb-1 order-title">Goldan Watch</h5>
+            <p class="mb-0 order-price">$689</p>
+          </div>
+          <div class="d-flex">
+            <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+            <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas-footer h-70 p-3 border-top">
+      <div class="d-grid">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="offcanvas">View Products</button>
+      </div>
+    </div>
+  </div>
+  <!--end cart-->
+
+  <!--start primary menu offcanvas-->
+  <OffCanvas></OffCanvas>
+  <!--end primary menu offcanvas-->
+
+
+  <!--start user details offcanvas-->
+  <div class="offcanvas offcanvas-start w-260" data-bs-scroll="true" tabindex="-1" id="offcanvasUserDetails">
+    <div class="offcanvas-body">
+      <div class="user-wrapper">
+        <div class="text-center p-3 bg-light rounded">
+          <img src="https://placehold.co/110x110" class="rounded-circle p-1 shadow mb-3" width="120" height="120" alt="">
+          <h5 class="user-name mb-0 fw-bold">{{ userData.name + " " + userData.surname }}</h5>
+          <p class="mb-0">{{ userData.type }}</p>
+        </div>
+        <div class="list-group list-group-flush mt-3 profil-menu fw-bold">
+          <a href="javascript:;"
+            class="list-group-item list-group-item-action d-flex align-items-center gap-2 border-top"><i
+              class="material-icons-outlined">person_outline</i>Profile</a>
+          <a href="javascript:;"
+            class="list-group-item list-group-item-action d-flex align-items-center gap-2 border-bottom"><i
+              class="material-icons-outlined">power_settings_new</i>Logout</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="offcanvas-footer p-3 border-top">
+      <div class="text-center">
+        <button type="button" class="btn d-flex align-items-center gap-2" data-bs-dismiss="offcanvas"><i
+            class="material-icons-outlined">close</i><span>Cerar Sidebar</span></button>
+      </div>
+    </div>
+  </div>
+  <!--end user details offcanvas-->
+</template>
