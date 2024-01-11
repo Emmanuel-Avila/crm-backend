@@ -5,7 +5,6 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 import { Model } from 'mongoose';
 import { Post, PostDocument } from './schemas/post.schema';
 import { saveImage } from 'src/utils/saveImage';
-import { join } from 'path';
 
 @Injectable()
 export class BlogService {
@@ -16,19 +15,11 @@ export class BlogService {
     try {
       this.logger.log('Blog Service - CREATE POST - STARTING');
 
-      const splittedPath = createBlogDto.image.split("/");
-      const imageName = splittedPath[splittedPath.length - 1]
-      saveImage(createBlogDto.image, join(__dirname, '..', '..', 'static', imageName), async (message) => {
-        if (message) {
-          console.log(message)
-        }
-      })
+      saveImage(createBlogDto.image)
 
       const post = await this.postModel.create(createBlogDto);
 
       this.logger.log('Blog Service - CREATE POST - FINISHED');
-
-      this.logger.log('Blog Service - Real finished execution?');
 
       return post;
     } catch (error) {

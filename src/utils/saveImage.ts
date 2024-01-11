@@ -1,17 +1,28 @@
 import * as https from 'https';
 import * as fs from 'fs';
+import { join } from 'path';
 
-export const saveImage = (url: string, dest: string, cb: (message?: string) => void) => {
+export const saveImage = (imageUrl: string) => {
+  const splittedPath = imageUrl.split("/");
+  const imageName = splittedPath[splittedPath.length - 1]
+  const dest = join(process.cwd(), 'static', imageName)
+
   const file = fs.createWriteStream(dest);
 
   https
-    .get(url, function (response) {
+    .get(imageUrl, function (response) {
       response.pipe(file);
       file.on('finish', function () {
-        file.close((err) => cb(err?.message));
+        file.close((err) => {
+          if (err) console.log(err);
+        });
       });
+      file.on('error', function (err) {
+        console.log(err);
+      })
     })
     .on('error', function (err) {
-      fs.unlink(dest, () => cb(err?.message));
+      fs.unlink(dest, () => { console.log(err) });
     });
-}; 
+};
+
