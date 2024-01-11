@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DiscountDocument, Discount } from './schemas/discount.schema';
 import { CreateDiscountDto } from './dto/create-discount.dto';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class DiscountService{
@@ -12,6 +13,9 @@ export class DiscountService{
   async create(body: CreateDiscountDto){
     try {
       this.logger.log('Discount Service - CREATE DISCOUNT - STARTING');
+
+      saveImage(body.image);
+
       const discount = await this.discountModel.create(body);
       this.logger.log('Discount Service - CREATE DISCOUNT - FINISHED');
       return discount;
