@@ -17,11 +17,19 @@ export class BlogService {
       this.logger.log('Blog Service - CREATE POST - STARTING');
 
       const splittedPath = createBlogDto.image.split("/");
-      const imageName = splittedPath[splittedPath.length -1]
-      saveImage(createBlogDto.image, join(__dirname, '..', '..', 'static', imageName), () => console.log("file saved"))
+      const imageName = splittedPath[splittedPath.length - 1]
+      saveImage(createBlogDto.image, join(__dirname, '..', '..', 'static', imageName), async (message) => {
+        if (message) {
+          console.log(message)
+        }
+      })
 
       const post = await this.postModel.create(createBlogDto);
+
       this.logger.log('Blog Service - CREATE POST - FINISHED');
+
+      this.logger.log('Blog Service - Real finished execution?');
+
       return post;
     } catch (error) {
       this.logger.log('Blog Service - CREATE POST - FAILED', error);
