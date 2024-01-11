@@ -42,6 +42,8 @@ import { ElectionModule } from './elections/election.module';
 import { ElectionController } from './elections/election.controller';
 import { OfficeModule } from './offices/office.module';
 import { OfficeController } from './offices/office.controller';
+import { ModalModule } from './modal/modal.module';
+import { ModalController } from './modal/modal.controller';
 
 @Module({
   imports: 
@@ -66,6 +68,7 @@ import { OfficeController } from './offices/office.controller';
     TransparencyModule,
     ElectionModule,
     OfficeModule,
+    ModalModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
@@ -95,6 +98,7 @@ import { OfficeController } from './offices/office.controller';
     TransparencyController,
     ElectionController,
     OfficeController,
+    ModalController,
   ],
   providers: [AppService,
     {

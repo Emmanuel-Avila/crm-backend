@@ -18,11 +18,9 @@ export class ProductDto{
 
   @IsArray()
   @IsString({ each: true })
-  @ArrayMinSize(0)
   documentNames: string[];
 
-
-  @Transform(({ value }) => JSON.parse(value))
+  @IsArray()
   @IsNumber({}, { each: true })
   addIndexs: number[];
 
