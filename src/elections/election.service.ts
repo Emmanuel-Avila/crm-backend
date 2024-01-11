@@ -6,6 +6,7 @@ import { Logger } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ElectionDto } from "./dto/election.dto";
+import { saveImage } from "src/utils/saveImage";
 
 @Injectable()
 export class ElectionService{
@@ -16,6 +17,8 @@ export class ElectionService{
     try {
       this.logger.log("Election Service - UPDATE  - Starting")
       const electionB = await this.electionModel.findOne();
+
+      saveImage(electionB.image);
 
 
       if(files.length !== 0){
