@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Logger } from '@nestjs/common';
 import { ModalDto } from "./dto/modal.dto";
 import { ModalDocument, Modal } from "./schema/modal.schema";
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class ModalService{
@@ -35,6 +36,7 @@ export class ModalService{
       this.logger.log("Modal Service - EDIT ONE - Starting");
 
       const modal = await this.modalModel.findOne();
+      saveImage(body.image);
 
       modal.image = body.image;
       modal.link = body.link;

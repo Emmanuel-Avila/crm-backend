@@ -72,10 +72,10 @@ import { ModalController } from './modal/modal.controller';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'static'),
-      serveRoot: "/static/"
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(process.cwd(), 'static'),
+    //   serveRoot: "/static/"
+    // }),
   ],
   controllers: 
   [
