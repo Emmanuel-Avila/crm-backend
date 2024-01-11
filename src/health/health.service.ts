@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
 import { HealthDocument, Health } from './schemas/health.schema';
 import { HealthCampaignDto } from './dto/health.dto';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class HealthService{
@@ -35,6 +36,8 @@ export class HealthService{
   async edit(body: HealthCampaignDto){
     try {
       this.logger.log('Health Service - Edit ONE - STARTING');
+
+      saveImage(body.image);
 
       const campaign = await this.healthCampaign.findOne();
 
