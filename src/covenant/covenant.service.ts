@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CovenantDocument, Covenant } from './schemas/covenant.schema';
 import { CreateCovenantDto } from './dto/create-covenant.dto';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class CovenantService{
@@ -12,6 +13,9 @@ export class CovenantService{
   async create(body: CreateCovenantDto){
     try {
       this.logger.log('Covenant Service - CREATE Covenant - STARTING');
+      
+      saveImage(body.image);
+
       const Covenant = await this.covenantModel.create(body);
       this.logger.log('Covenant Service - CREATE Covenant - FINISHED');
       return Covenant;
