@@ -5,7 +5,7 @@ import { join } from 'path';
 export const saveImage = (imageUrl: string) => {
   const splittedPath = imageUrl.split("/");
   const imageName = splittedPath[splittedPath.length - 1]
-  const dest = join(process.cwd(), 'static', imageName)
+  const dest = join(process.cwd(), 'public', 'image' ,imageName)
 
   const file = fs.createWriteStream(dest);
 
