@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
 import { SocialPrevision, SocialPrevisionDocument } from './schemas/socialPrevision.schema';
 import { SocialPrevisionDto } from './dto/social.dto';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class SocialPrevisionService{
@@ -34,6 +35,8 @@ export class SocialPrevisionService{
   async edit(body: SocialPrevisionDto){
     try {
       this.logger.log('Social Prevision Service - EDIT ONE - STARTING');
+
+      saveImage(body.image);
 
       const campaign = await this.socialPrevision.findOne();
 
