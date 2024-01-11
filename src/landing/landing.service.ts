@@ -4,6 +4,8 @@ import { Model } from 'mongoose';
 import { Logger } from '@nestjs/common';
 import { LandingImages, LandingImagesDocument } from './schemas/landingImages.schema';
 import { LandingImagesDto } from "./dto/landingImages.dto";
+import { saveImage } from "src/utils/saveImage";
+import { join } from "path";
 
 @Injectable()
 export class LandingImagesService{
@@ -34,6 +36,19 @@ export class LandingImagesService{
   async updateOne(links: LandingImagesDto) {
     try {
       this.logger.log("LandingImages Service - UPDATE - STARTING");
+
+      for (let i = 0; i < links.links.length; i++) {
+        const link = links.links[i];
+        
+        const splittedPath = link.split("/");
+        const imageName = splittedPath[splittedPath.length - 1]
+        saveImage(link, join(__dirname, '..', '..', 'static', imageName), async (message) => {
+          if (message) {
+            console.log(message)
+          }
+        })
+      }
+
       const images = await this.landingModel.findOne();
 
       images.links = links.links;
