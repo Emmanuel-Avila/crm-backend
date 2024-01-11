@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
 import { FairDocument, Fair } from './schemas/fair.schema';
 import { FairDto } from './dto/fair.dto';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class FairService {
@@ -34,6 +35,8 @@ export class FairService {
   async edit(body: FairDto){
     try {
       this.logger.log('Events fair - EDIT ONE - STARTING');
+
+      saveImage(body.image);
 
       const fair = await this.fairModel.findOne();
 
