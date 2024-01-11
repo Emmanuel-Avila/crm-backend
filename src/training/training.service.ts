@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
 import { TrainingDocument, Training } from './schemas/training.schema';
 import { TrainingDto } from './dto/training.dto';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class TrainingService {
@@ -34,6 +35,8 @@ export class TrainingService {
   async edit(body: TrainingDto){
     try {
       this.logger.log('Training Service - EDIT ONE - STARTING');
+
+      saveImage(body.image);
 
       const training = await this.trainingModel.findOne();
 

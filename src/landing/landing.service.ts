@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Logger } from '@nestjs/common';
 import { LandingImages, LandingImagesDocument } from './schemas/landingImages.schema';
 import { LandingImagesDto } from "./dto/landingImages.dto";
+import { saveImage } from "src/utils/saveImage";
 
 @Injectable()
 export class LandingImagesService{
@@ -34,13 +35,15 @@ export class LandingImagesService{
   async updateOne(links: LandingImagesDto) {
     try {
       this.logger.log("LandingImages Service - UPDATE - STARTING");
+
+      for (let i = 0; i < links.links.length; i++) {
+        const link = links.links[i];
+        saveImage(link)
+      }
+
       const images = await this.landingModel.findOne();
-
       images.links = links.links;
-
       images.save()
-
-
 
       this.logger.log("LandingImages Service - UPDATE - FINISHED");
 

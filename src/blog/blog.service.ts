@@ -4,6 +4,7 @@ import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 import { Model } from 'mongoose';
 import { Post, PostDocument } from './schemas/post.schema';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class BlogService {
@@ -13,8 +14,13 @@ export class BlogService {
   async create(createBlogDto: CreateBlogDto) {
     try {
       this.logger.log('Blog Service - CREATE POST - STARTING');
+
+      saveImage(createBlogDto.image)
+
       const post = await this.postModel.create(createBlogDto);
+
       this.logger.log('Blog Service - CREATE POST - FINISHED');
+
       return post;
     } catch (error) {
       this.logger.log('Blog Service - CREATE POST - FAILED', error);

@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Logger } from '@nestjs/common';
 import { DigitalServices, DigitalServicesDocument } from './schemas/digitalServices.schema';
 import { DigitalServicesDto } from "./dto/digitalService.dto";
+import { saveImage } from "src/utils/saveImage";
 
 @Injectable()
 export class DigitalServicesService{
@@ -33,6 +34,11 @@ export class DigitalServicesService{
   async update(set: DigitalServicesDto){
     try {
       this.logger.log("DigitalServices Service - UPDATE - Starting");
+
+      for (let i = 0; i < set.services.length; i++) {
+        const service = set.services[i];
+        saveImage(service.image)
+      }
 
       const services = await this.digitalServices.findOne();
 

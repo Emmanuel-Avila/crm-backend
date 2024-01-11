@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Injectable, Logger } from '@nestjs/common';
 import { Event, EventDocument } from './schemas/events.schema';
 import { EventDto } from './dto/events.dto';
+import { saveImage } from 'src/utils/saveImage';
 
 @Injectable()
 export class EventService {
@@ -34,6 +35,8 @@ export class EventService {
   async edit(body: EventDto){
     try {
       this.logger.log('Events Service - EDIT ONE - STARTING');
+
+      saveImage(body.image);
 
       const service = await this.eventModel.findOne();
 
