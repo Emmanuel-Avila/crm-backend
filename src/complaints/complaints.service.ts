@@ -25,11 +25,11 @@ export class ComplaintService {
 
     ){
       this.transporter = nodemailer.createTransport({
-        host: "smtp-pulse.com",
-        port: 587,
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT),
         auth: {
-          user: "dircom@larehabilitadora.com",
-          pass: "tE9YZkHPmY"
+          user: process.env.SMTP_AUTH_USER,
+          pass: process.env.SMTP_AUTH_PASS
         }
       })
     }
