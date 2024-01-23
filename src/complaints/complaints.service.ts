@@ -129,8 +129,8 @@ export class ComplaintService {
         html: `<div style="max-width: 40rem; margin: 0 auto;">
         <h1 style="line-height: 1.3; margin: 3rem 0px 0px; text-align: center;">Libro de Reclamaciones</h1>
         <h2 style="line-height: 1.5; text-align: center;">Hola ${complaint.names}</h2>
-        <p style="text-align: center;">Tu reclamo con ${complaint.code} ha sido atendido.</p>
-        <p style="text-align: center;">Puedes revisar el resultado usando tu ${complaint.code} en la plataforma LaRehabilitadora</p>
+        <p style="text-align: center;">Su caso registrado con código ${complaint.code} ha sido atendido.</p>
+        <p style="text-align: center;">Puedes revisar el resultado usando en el siguiente enlace: <a href="${process.env.FRONTEND_DOMAIN}/consulta/${complaint.code}" target="_blank" rel="noopener" aria-invalid="true">REVISAR ESTADO DE MI RECLAMO</a></p>
         </div>`,
       }
       
@@ -278,9 +278,9 @@ export class ComplaintService {
       html: `<div style="max-width: 40rem; margin: 0 auto;">
             <h1 style="line-height: 1.3; margin: 3rem 0px 0px; text-align: center;">Libro de Reclamaciones</h1>
             <h2 style="text-align: center;"><span style="font-size: 27px;">Hola ${body.names}</span></h2>
-            <p style="line-height: 1.5; text-align: center;">Hemos recibido tu solicitud con codigo: ${code}</p>
-            <p style="line-height: 1.5; text-align: center;">En un maximo de 15 dias habiles recibiras una respuesta, la cual sera notificada por este medio.</p>
-            <p style="line-height: 1.5; text-align: center;">Si deseas puedes revisar tu&nbsp;reclamo y su estado en el siguiente enlace:</p>
+            <p style="line-height: 1.5; text-align: center;">Hemos recibido tu solicitud con código: ${code}</p>
+            <p style="line-height: 1.5; text-align: center;">En un plazo máximo de 15 días hábiles recibirá una respuesta</p>
+            <p style="line-height: 1.5; text-align: center;">El número de identificación le permitirá revisar el estado del mismo, ingresando al siguiente enlace:</p>
             <p style="line-height: 1.5; text-align: center;"><a href="${process.env.FRONTEND_DOMAIN}/consulta/${code}" target="_blank" rel="noopener" aria-invalid="true">REVISAR ESTADO DE MI RECLAMO</a></p>
             </div>`
     }
