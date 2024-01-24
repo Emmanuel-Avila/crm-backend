@@ -8,6 +8,9 @@ export class LandingImages {
 
   @Prop({ type: [String], required: true })
   links: string[];
+
+  @Prop({ type: [String], required: true })
+  redirections: string[];
   
 }
 

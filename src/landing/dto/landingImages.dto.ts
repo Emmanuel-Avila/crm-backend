@@ -6,4 +6,8 @@ export class LandingImagesDto {
   @IsString({ each: true })
   links: string[];
 
+  @IsArray()
+  @IsString({ each: true })
+  redirections: string[];
+
 }

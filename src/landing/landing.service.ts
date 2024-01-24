@@ -32,17 +32,18 @@ export class LandingImagesService{
     }
   }
 
-  async updateOne(links: LandingImagesDto) {
+  async updateOne(body: LandingImagesDto) {
     try {
       this.logger.log("LandingImages Service - UPDATE - STARTING");
 
-      for (let i = 0; i < links.links.length; i++) {
-        const link = links.links[i];
+      for (let i = 0; i < body.links.length; i++) {
+        const link = body.links[i];
         saveImage(link)
       }
 
       const images = await this.landingModel.findOne();
-      images.links = links.links;
+      images.links = body.links;
+      images.redirections = body.redirections;
       images.save()
 
       this.logger.log("LandingImages Service - UPDATE - FINISHED");
