@@ -130,7 +130,8 @@ export class ComplaintService {
         <h1 style="line-height: 1.3; margin: 3rem 0px 0px; text-align: center;">Libro de Reclamaciones</h1>
         <h2 style="line-height: 1.5; text-align: center;">Gracias por la espera ${complaint.names}</h2>
         <p style="text-align: center;">Su caso registrado con c&oacute;digo ${complaint.code} ha sido atendido.</p>
-        <p style="text-align: center;">Puedes revisar el resultado usando en el siguiente enlace: <a href="${process.env.FRONTEND_DOMAIN}/consulta/${complaint.code}" target="_blank" rel="noopener" aria-invalid="true">REVISAR ESTADO DE MI RECLAMO</a></p>
+        <p style="text-align: center;">Puedes revisar el resultado usando en el siguiente enlace:</p>
+        <p style="text-align: center;"> <a href="${process.env.FRONTEND_DOMAIN}/consulta/${complaint.code}" target="_blank" rel="noopener" aria-invalid="true">REVISAR ESTADO DE MI RECLAMO</a></p>
         </div>`,
       }
       
