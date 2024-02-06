@@ -17,6 +17,9 @@ export class Complaints{
   surnames: string
 
   @Prop({required: true})
+  address: string
+
+  @Prop({required: true})
   code: string
 
   @Prop({required: true})

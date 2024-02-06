@@ -122,7 +122,7 @@ export class ComplaintService {
       const complaint = await this.complaintsModel.findById(body.id);
 
       const mailOptions: nodemailer.SendMailOptions = {
-        from: ' "Libro de Reclamos" cdm@larehabilitadora.com',
+        from: ' "Libro de Reclamos" cdm@larehabilitadora.pe',
         to: complaint.email,
         subject: `Libro de Reclamaciones - ${complaint.code}`,
         text: '',
@@ -175,7 +175,7 @@ export class ComplaintService {
         comment.documents.push(link)
       });
       const mailOptions: nodemailer.SendMailOptions = {
-        from: ' "Libro de Reclamos" cdm@larehabilitadora.com',
+        from: ' "Libro de Reclamos" cdm@larehabilitadora.pe',
         to: body.email,
         subject: `Libro de Reclamaciones - ${body.complaintCode}`,
         text: '',
