@@ -122,7 +122,7 @@ export class ComplaintService {
       const complaint = await this.complaintsModel.findById(body.id);
 
       const mailOptions: nodemailer.SendMailOptions = {
-        from: ' "Libro de Reclamos" cdm@larehabilitadora.pe',
+        from: ' "Libro de Reclamos" cdm@larehabilitadora.com',
         to: complaint.email,
         subject: `Libro de Reclamaciones - ${complaint.code}`,
         text: '',
@@ -135,12 +135,13 @@ export class ComplaintService {
         </div>`,
       }
       
-      const result = await this.transporter.sendMail(mailOptions);
-
       complaint.action = body.action;
       complaint.state = body.state;
 
       const updatedComplaint = await complaint.save()
+
+      const result = await this.transporter.sendMail(mailOptions);
+
       this.logger.log('Complaints Service - UPDATE ONE  - FINISHED');
 
       return updatedComplaint;
@@ -175,7 +176,7 @@ export class ComplaintService {
         comment.documents.push(link)
       });
       const mailOptions: nodemailer.SendMailOptions = {
-        from: ' "Libro de Reclamos" cdm@larehabilitadora.pe',
+        from: ' "Libro de Reclamos" cdm@larehabilitadora.com',
         to: body.email,
         subject: `Libro de Reclamaciones - ${body.complaintCode}`,
         text: '',
